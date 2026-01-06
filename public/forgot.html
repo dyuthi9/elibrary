@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="home.css">
+  <style>
+.container {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+#resetSection {
+  display: none;
+}
+.fade {
+  transition: all 0.3s ease-in-out;
+}
+  </style>
+</head>
+<body>
+      <div class="container fade">
+        <div id="forgotSection">
+        <h2>Forgot Password</h2>
+          <form id="forgotForm">
+              <input type="email" name="email" placeholder="Enter your email" required>
+              <button type="submit">Next</button>
+            </form>
+          </div>
+          <div id="resetSection">
+            <h2>Reset Password</h2>
+            <form id="resetForm">
+              <input type="email" name="email" id="resetEmail" readonly><br>
+              <input type="password" name="newPassword" placeholder="New Password" required>
+              <button type="submit" id="logoutBtn">Reset Password</button>
+            </form>
+          </div>
+      
+        </div>
+      </div>        
+
+  <script>
+    const forgotForm = document.getElementById('forgotForm');
+    const resetForm = document.getElementById('resetForm');
+    const forgotSection = document.getElementById('forgotSection');
+    const resetSection = document.getElementById('resetSection');
+    const resetEmailInput = document.getElementById('resetEmail');
+
+    // Step 1: Submit Email (Check if user exists)
+    forgotForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = forgotForm.email.value;
+
+      const res = await fetch('/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      const result = await res.text();
+      alert(result);
+
+      if (res.ok) {
+        // Store email in the reset form
+        resetEmailInput.value = email;
+        // Show reset section, hide forgot section
+        forgotSection.style.display = 'none';
+        resetSection.style.display = 'block';
+      }
+    });
+
+    // Step 2: Reset Password
+    resetForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = resetEmailInput.value;
+      const newPassword = resetForm.newPassword.value;
+
+      const res = await fetch('/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, newPassword })
+      });
+
+      alert(await res.text());
+      if (res.ok) {
+        // Optionally, reset forms or redirect
+        resetForm.reset();
+        forgotForm.reset();
+        resetSection.style.display = 'none';
+        forgotSection.style.display = 'block';
+      }
+    });
+    const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", async () => {
+        try {
+            const response = await fetch("/logout", {
+                method: "POST",
+                credentials: "include"
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                window.location.href = "/home.html";
+            } else {
+                alert("❌ Logout failed: " + data.error);
+            }
+        } catch (error) {
+            console.error("❌ Error logging out:", error);
+        }
+    });
+}
+  </script>
+
+</body>
+</html>

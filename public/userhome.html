@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eLibrary Management System Home</title>
+    <link rel="stylesheet" href="userhome.css">
+    <link rel="icon" href="/favicon1.png" type="image/png" />
+
+</head>
+<body>
+        <header>
+            <h1 >Welcome to Our eLibrary Management System</h1>
+            <div class="search-container">
+                <label for="search">🔎</label>
+                <input type="text" id="search" class="search-box" placeholder="Search books..." onkeyup="searchBooks()">
+            </div>
+            <div class="nav">
+            <a href="catbook.html" target="f1">📖Books</a>
+            <a href="borrow.html" target="f1">Borrowed Books</a>
+            <a href="wishlist.html" target="f1">Wishlist ❤️</a>
+            <a href="aboutus.html" target="f1">About Us</a>
+            <a href="contactus.html" target="f1">contact Us</a>
+        </div>
+        </header>
+    
+        <div class="profile-sidebar">
+            <div class="profile-content">
+                <p><b>👤 Profile</b></p>
+                <div class="profile-menu">
+                    <p id="profile-name">Loading...</p>
+                    <p id="profile-username"></p>
+                    <p id="profile-registerno"></p>
+                    <p id="profile-email"></p>
+                    <p id="profile-year"></p>
+                    <p id="profile-phoneno"></p>
+                    <button id="logoutBtn">Log Out</button>
+                </div>
+            </div>
+        </div>
+        <div class="frame">
+            <iframe src="catbook.html" name="f1" frameborder="0" width="100%" height="600px"></iframe>
+        <!-- <div id="bookDetails" class="book-details"></div> -->
+    </div>
+    </div>
+    <script src="userhome.js"></script>
+    <footer>
+        <p>&copy;Copy Rigths </p>
+    </footer>
+</body>
+</html>

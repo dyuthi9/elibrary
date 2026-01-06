@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrow Requests</title>
+    <link rel="stylesheet" href="adminhome.css">
+    <style>
+        /* Add this only if it's not already in your adminhome.css */
+        .modal {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100vw; height: 100vh;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 999;
+        }
+    
+        .modal-content {
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          width: 80%;
+          max-width: 600px;
+          position: relative;
+        }
+    
+        .close-btn {
+          position: absolute;
+          top: 10px;
+          right: 20px;
+          font-size: 24px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+    
+        .hidden {
+          display: none;
+        }
+      </style>
+</head>
+<body>
+    <a href="homee.html">← Home</a>
+    <div class="container">
+        <section id="bookRequests">
+            <h2>Book Requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student user Name</th>
+                        <th>Book Title</th>
+                        <th>Status</th>
+                        <th>...</th>
+                    </tr>
+                </thead>
+                <tbody id="bookRequestsList"></tbody>
+            </table>
+        </section>
+
+    <div id="studentModal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close-btn" id="closeModal">&times;</span>
+          <h3>Borrowed Books</h3>
+          <p id="bookCount" style="margin: 10px 0; font-weight: bold;"></p>
+          <table>
+            <thead>
+              <tr>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Borrowed Date</th>
+                <th>Return Date</th>
+                <th>Status</th>
+                <th>Days Late</th>
+                <th>Fine (₹)</th>
+              </tr>
+            </thead>
+            <tbody id="modalBorrowedBooksList"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script src="adminhome.js"></script>
+    <script>
+       // ✅ Load Borrow Requests on Page Load
+document.addEventListener("DOMContentLoaded", () => {
+    loadBookRequests();
+    setupModalClose();
+});
+
+// ✅ Load Borrow Requests from Server
+async function loadBookRequests() {
+    try {
+        const response = await fetch("/borrow-requests");
+        const requests = await response.json();
+        displayBorrowRequests(requests);
+    } catch (error) {
+        console.error("❌ Error fetching borrow requests:", error);
+    }
+}
+
+// ✅ Display Borrow Requests with "Approve" and "More" buttons
+function displayBorrowRequests(requests) {
+    const tableBody = document.getElementById("bookRequestsList");
+    if (!tableBody) {
+        console.error("❌ 'bookRequestsList' table not found.");
+        return;
+    }
+
+    tableBody.innerHTML = requests.length === 0 
+        ? `<tr><td colspan="4">No borrow requests.</td></tr>` 
+        : requests.map(request => `
+            <tr>
+                <td>${request.username}</td>
+                <td>${request.bookId?.name || "N/A"}</td>
+                <td><button onclick="approveBorrow('${request._id}')">Approve</button></td>
+                <td><button class="more-btn" data-username="${request.username}">More</button></td>
+            </tr>
+        `).join("");
+
+    // Attach "more" button listeners
+    document.querySelectorAll(".more-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const username = btn.dataset.username;
+            showModal(username);
+        });
+    });
+}
+
+// ✅ Approve Borrow Request
+async function approveBorrow(requestId) {
+    try {
+        await fetch("/approve-borrow", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ requestId })
+        });
+
+        alert("✅ Borrow request approved!");
+        loadBookRequests();
+    } catch (error) {
+        console.error("❌ Error approving borrow request:", error);
+    }
+}
+
+// Ensure the close button works
+document.addEventListener("DOMContentLoaded", () => {
+      const closeBtn = document.getElementById("closeModal");
+      const modal = document.getElementById("studentModal");
+
+      if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+          modal.classList.add("hidden");
+        });
+      }
+
+      // Optional: close modal on outside click
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.add("hidden");
+        }
+      });
+    });
+
+      </script>
+</body>
+</html>

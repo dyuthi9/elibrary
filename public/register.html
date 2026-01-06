@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <h1><center>Register Form</center></h1>
+    <div class="container">
+        <div class="login-container">
+            <form id="registerForm" enctype="multipart/form-data">
+                <div class="input-group">
+                    <label for="name">Name :</label>
+                    <input type="text" name="name" id="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="username">UserName :</label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="registerno">Register No :</label>
+                    <input type="text" name="registerno" id="registerno" required>
+                </div>
+                <div class="checkbox">
+                    <label for="year">Year :</label><br>
+                    <input type="radio" name="year" value="1st Year"> 1st Year<br>
+                    <input type="radio" name="year" value="2nd Year"> 2nd Year<br>
+                    <input type="radio" name="year" value="3rd Year"> 3rd Year<br>
+                    <input type="radio" name="year" value="4th Year"> 4th Year<br>
+                </div>
+                <div class="input-group">
+                    <label for="photo">Photo :</label>
+                    <input type="file" name="photo" id="photo" accept="image/*">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password :</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="phoneno">Phone Number :</label>
+                    <input type="number" id="phoneno" name="phoneno" required>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+    <script src="register.js"></script>
+</body>
+</html>

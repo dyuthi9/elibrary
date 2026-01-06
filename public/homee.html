@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="adminhome.css">
+    <style>
+        .counts{
+            display: flex;
+            flex-wrap: wrap;
+            justify-items: center;
+            gap: 40px;
+            margin-left: 90px;
+        }
+        .count{
+            border-radius: 20px;
+            padding: 30px;
+            width:150px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(79, 119, 248, 0.6), hsla(172, 78%, 61%, 0.6));
+    backdrop-filter: blur(1000px);
+    border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="counts">
+        <div class="count">
+            <h4>🎓 Total Students</h4>
+            <h3 id="total-students">0</h3>
+        </div>
+        <div class="count">
+            <h4>📚 Total Books</h4>
+            <h3 id="total-books">0</h3>
+        </div>
+        <div class="count">
+            <h4>📑 Borrow Requests</h4>
+            <h3 id="total-borrow-requests">0</h3>
+        </div>
+        <div class="count">
+            <h4>📑 Return Requests</h4>
+            <h3 id="total-return-requests">0</h3>
+        </div>
+        <div class="count">
+            <h4>📖 Borrowed Books</h4>
+            <h3 id="total-borrowed-books">0</h3>
+        </div>
+</div>
+    <div class="nav">
+    
+<a href="newbook.html" target="f2">Add Book</a>
+<a href="delete.html" target="f2">Delete Book</a>
+<a href="studentdetails.html" target="f2">Student Details</a>
+<a href="bookdetails.html" target="f2">Book Details</a>
+<a href="borrowrequest.html" target="f2">Borrow request</a>
+<a href="returnrequest.html" target="f2">Return request</a>
+<a href="overdue.html" target="f2">Borrowed Books</a>
+
+</div>
+</div>
+<script src="adminhome.js"></script> <!-- Link to JavaScript file -->
+</body>
+</html>

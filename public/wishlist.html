@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Wishlist</title>
+  <style>
+    body{
+    background: linear-gradient(135deg, rgba(79, 119, 248, 0.2), rgba(38, 198, 218, 0.2));
+    justify-content: center;
+}
+    .book-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px;
+      width: 200px;
+      display: inline-block;
+      vertical-align: top;
+      text-align: center;
+    }
+    .wishlist-icon {
+      float: right;
+      font-size: 20px;
+      color: grey;
+      cursor: pointer;
+    }
+    .wishlist-icon.active {
+      color: red;
+    }
+    .book-image {
+      width: 100px;
+      height: 150px;
+      object-fit: cover;
+    }
+    .borrow-btn {
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .borrow-btn:hover {
+      background-color: #218838;
+    }
+    .wishlist-container{
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <h2><center>My Wishlist</center></h2>
+  <a href="catbook.html">← Back to Catalog</a>
+  <div id="wishlist-container"></div>
+
+  <script>
+    async function fetchWishlistBooks() {
+      try {
+        const wishlistRes = await fetch("/api/user-wishlist");
+        if (!wishlistRes.ok) {
+          alert("Please login to view wishlist");
+          window.location.href = "login.html";
+          return;
+        }
+        const wishlistIds = await wishlistRes.json();
+
+        const booksRes = await fetch("/api/books");
+        const allBooks = await booksRes.json();
+
+        const filteredBooks = allBooks.filter(book => wishlistIds.includes(book._id));
+        displayBooks(filteredBooks, wishlistIds);
+      } catch (err) {
+        console.error("Error loading wishlist:", err);
+      }
+    }
+
+    function displayBooks(books, wishlistIds) {
+      const container = document.getElementById("wishlist-container");
+      container.innerHTML = "";
+
+      if (books.length === 0) {
+        container.innerHTML = "<p>No books in your wishlist.</p>";
+        return;
+      }
+
+      books.forEach(book => {
+        const card = document.createElement("div");
+        card.classList.add("book-card");
+
+        const imageUrl = book.image ? `/${book.image}` : "default.jpg";
+        const isDisabled = book.available === 0 ? "disabled" : "";
+
+        card.innerHTML = `
+          <img src="${imageUrl}" alt="${book.name}" class="book-image">
+          <h3>${book.name}
+            <span class="wishlist-icon active" data-id="${book._id}">&#10084;</span>
+          </h3>
+          <p>Author: ${book.author}</p>
+          <p>Category: ${book.category}</p>
+          <p><strong>Available Copies:</strong> ${book.available}</p>
+          <button class="borrow-btn" onclick="borrowBook('${book._id}')" ${isDisabled}>
+            ${book.available === 0 ? "Not Available" : "Borrow"}
+          </button>
+        `;
+
+        const heartIcon = card.querySelector(".wishlist-icon");
+        heartIcon.addEventListener("click", async () => {
+          await fetch("/api/user-wishlist", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ bookId: book._id })
+          });
+          fetchWishlistBooks(); // Refresh the list
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    function borrowBook(bookId) {
+      fetch("/borrow-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookId })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+        location.reload();
+      })
+      .catch(err => console.error("Error borrowing book:", err));
+    }
+
+    fetchWishlistBooks();
+  </script>
+</body>
+</html>

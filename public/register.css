@@ -1,0 +1,74 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,  hsl(172, 78%, 61%),#4f77f8);
+    margin: 0;
+}
+h1{
+    font-size: 50px;
+    padding-bottom: 20px;
+}
+/* Container for Login Boxes */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Space between login boxes */
+    width: 80%;
+    max-width: 500px;
+    padding-bottom: 50px;
+}
+
+
+/* Styling for Each Login Box */
+.login-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    background: linear-gradient(135deg, #4f77f8, #4fe9d4);
+}
+
+/* Form Inputs */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label,.checkbox label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.checkbox{
+    font-size: 20px;
+}
+/* Login Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #13339a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #4fe9d4;
+}

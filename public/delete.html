@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Book</title>
+    <link rel="stylesheet" href="adminhome.css">
+    <style>
+        body{
+            background: linear-gradient(135deg, rgba(79, 119, 248, 0.2), rgba(38, 198, 218, 0.2));
+        }
+        .container{
+            width: 600px;
+            margin-left: 450px;
+        }
+        .input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.input-group input {
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+button{
+    margin-top: 20px;
+}
+    </style>
+</head>
+<body>
+    <a href="homee.html">← Home</a>
+    <div class="container">
+        <section id="addBook">
+        <h2>Delete a Book</h2>
+        <div class="input-group">
+        <form id="deleteBookForm">
+            <label for="deleteBookTitle">Enter Book Name:</label>
+            <input type="text" id="deleteBookTitle" required>
+            <button type="submit">Delete Book</button>
+        </form>
+
+        <p id="deleteBookMessage"></p>
+    </div>
+</section>
+    </div>
+
+    <script>
+        document.getElementById("deleteBookForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const bookTitle = document.getElementById("deleteBookTitle").value;
+            const messageElement = document.getElementById("deleteBookMessage");
+
+            if (!messageElement) {
+                console.error("❌ Element with ID 'deleteBookMessage' not found");
+                return;
+            }
+
+            const confirmation = confirm(`Are you sure you want to delete "${bookTitle}"?`);
+            if (!confirmation) return;
+
+            try {
+                const response = await fetch("http://localhost:4040/deleteBook", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ bookTitle })
+                });
+
+                const data = await response.json();
+                messageElement.textContent = data.message;
+
+                if (response.ok) {
+                    messageElement.style.color = "green";
+                } else {
+                    messageElement.style.color = "red";
+                }
+            } catch (error) {
+                console.error("❌ Error:", error);
+                messageElement.textContent = "❌ Error deleting book.";
+                messageElement.style.color = "red";
+            }
+        });
+    </script>
+</body>
+</html>

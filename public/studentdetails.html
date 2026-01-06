@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Students Details</title>
+  <link rel="stylesheet" href="adminhome.css" />
+  <style>
+    /* Add this only if it's not already in your adminhome.css */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 600px;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <a href="homee.html">← Home</a>
+  <div class="container">
+    <section id="studentsDetails">
+      <h2>Students Details</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Register No</th>
+            <th>User Name</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone No</th>
+            <th>Year</th>
+            <th>...</th>
+          </tr>
+        </thead>
+        <tbody id="studentsList"></tbody>
+      </table>
+    </section>
+
+    <!-- Modal -->
+    <div id="studentModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <h3>Borrowed Books</h3>
+        <p id="bookCount" style="margin: 10px 0; font-weight: bold;"></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Book Name</th>
+              <th>Author</th>
+              <th>Borrowed Date</th>
+              <th>Return Date</th>
+              <th>Status</th>
+              <th>Days Late</th>
+              <th>Fine (₹)</th>
+            </tr>
+          </thead>
+          <tbody id="modalBorrowedBooksList"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="adminhome.js"></script>
+  <script>
+    // Ensure the close button works
+    document.addEventListener("DOMContentLoaded", () => {
+      const closeBtn = document.getElementById("closeModal");
+      const modal = document.getElementById("studentModal");
+
+      if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+          modal.classList.add("hidden");
+        });
+      }
+
+      // Optional: close modal on outside click
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.add("hidden");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

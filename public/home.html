@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Login</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="icon" href="/favicon1.png" type="image/png" />
+
+</head>
+<body>
+    <h1><center>eLibrary Management System Login</center></h1>
+    <div class="container">
+        <div class="login-container">
+            <h2>Admin Login</h2>
+            <form id="adminForm">
+                <div class="input-group">
+                    <label for="adminname">Adminname</label>
+                    <input type="text" id="adminname" name="adminname" required>
+                </div>
+                <div class="input-group">
+                    <label for="password1">Password</label>
+                    <input type="password" id="password1" name="password1" required>
+                </div>
+                <button type="submit">Login</button>
+                <p class="forgot-password"><a href="forgot1.html">Forgot Password?</a></p>
+                <p id="message1" style="color: red;"></p>
+            </form>
+        </div>
+    <div class="login-container">
+        <h2>User Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+            <p class="forgot-password"><a href="forgot.html">Forgot Password?</a></p>
+            <p id="message" style="color: red;"></p>
+
+        </form>
+    </div>
+    
+</div>
+    <div class="down">
+        <p>Not yet registered ?<br><a href="register.html">Register</a></p>
+    </div>
+<script src="home.js"></script>
+</body>
+</html>

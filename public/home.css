@@ -1,0 +1,106 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg,  hsl(172, 78%, 61%),#4f77f8);
+    margin: 0;
+}
+h1{
+    font-size: 50px;
+    padding-bottom: 20px;
+}
+/* Container for Login Boxes */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 80%;
+    max-width: 900px;
+}
+
+/* Styling for Each Login Box */
+.login-container {
+    background: rgba(26, 26, 26, 0.5); /* More transparent black layer */
+    padding: 2rem;
+    border-radius: 10px;
+/* box-shadow: 0 0 15px #ff0099; */
+    text-align: center;
+    width: 100%;
+    backdrop-filter: blur(20px); /* Blurred effect for better layering */
+}
+
+/* Form Inputs */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Login Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #4f77f8, #4fe9d4);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #4fe9d4;
+}
+
+/* Forgot Password */
+.forgot-password {
+    margin-top: 10px;
+}
+
+.forgot-password a {
+    text-decoration: none;
+    color: #0c0c65;
+}
+
+.forgot-password a:hover {
+    color: #a777e3;
+}
+
+/* Register Section */
+.down {
+    margin-top: 20px;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 15%;
+    text-decoration: none;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 600;
+    backdrop-filter: blur(20px);
+    background: rgba(221, 215, 215, 0.5);
+}
+
+.down a:hover {
+    color: #000000;
+    text-decoration: none;
+}
