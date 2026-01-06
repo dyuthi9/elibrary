@@ -223,9 +223,8 @@ app.post("/logout", (req, res) => {
 });
 
 // ✅ Start Server
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+module.exports = app;
+
 //------------------------------------------------------------------------------------------bookschema
 
 
@@ -773,3 +772,4 @@ app.post('/admin-forgot-password', async (req, res) => {
       res.status(500).send('Server error');
     }
   });
+
